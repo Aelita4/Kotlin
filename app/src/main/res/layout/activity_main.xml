@@ -1,58 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="30sp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="363dp"
+        android:layout_marginTop="350dp"
+        android:layout_marginBottom="28dp"
         android:text="Login"
-        app:layout_constraintBottom_toTopOf="@+id/fieldUsername"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.902" />
+        android:textSize="30sp" />
 
     <EditText
         android:id="@+id/fieldUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="417dp"
         android:layout_marginBottom="68dp"
         android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/loginButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:inputType="textPersonName" />
 
     <EditText
         android:id="@+id/fieldPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="476dp"
         android:ems="10"
-        android:inputType="textPassword"
-        app:layout_constraintBottom_toTopOf="@+id/loginButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fieldUsername"
-        app:layout_constraintVertical_bias="0.387" />
+        android:inputType="textPassword" />
 
     <Button
         android:id="@+id/loginButton"
-        android:layout_width="wrap_content"
+        android:layout_width="226dp"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/fieldPassword"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="316dp"
         android:layout_marginBottom="276dp"
-        android:text="Button"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:text="Login" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="75dp"
+        android:layout_height="25dp"
+        android:layout_below="@+id/textView4"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="18dp"
+        android:layout_toStartOf="@+id/fieldPassword"
+        android:text="Password" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="75dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="426dp"
+        android:layout_marginEnd="20dp"
+        android:layout_toStartOf="@+id/fieldUsername"
+        android:text="Username" />
+
+</RelativeLayout>
