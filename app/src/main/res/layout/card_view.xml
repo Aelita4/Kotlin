@@ -28,7 +28,7 @@
 
                 <TextView
                     android:id="@+id/cardId"
-                    android:layout_width="wrap_content"
+                    android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
@@ -38,24 +38,33 @@
 
                 <TextView
                     android:id="@+id/cardPlanetName"
-                    android:layout_width="wrap_content"
+                    android:layout_width="200dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="10dp"
                     android:text="Item"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
+                <Button
+                    android:id="@+id/buttonSpy"
+                    android:layout_width="80dp"
+                    android:layout_height="36dp"
+                    android:text="Spy" />
+
+                <Button
+                    android:id="@+id/buttonAttack"
+                    android:layout_width="100dp"
+                    android:layout_height="36dp"
+                    android:text="Attack" />
+
                 <TextView
                     android:id="@+id/cardOwnerUsername"
-                    android:layout_width="wrap_content"
+                    android:layout_width="120dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="200dp"
-                    android:layout_marginEnd="10dp"
                     android:text="Item"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     android:gravity="end"/>
+
             </TableRow>
         </TableLayout>
 

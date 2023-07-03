@@ -10,7 +10,8 @@ class DatabaseConnector(context: Context, factory: SQLiteDatabase.CursorFactory?
         val query = ("CREATE TABLE access_token ("
                 + "id INTEGER PRIMARY KEY, " +
                 "token TEXT," +
-                "username TEXT" + ")")
+                "username TEXT," +
+                "user_id TEXT" + ")")
 
         db.execSQL(query)
     }
@@ -20,11 +21,17 @@ class DatabaseConnector(context: Context, factory: SQLiteDatabase.CursorFactory?
         onCreate(db)
     }
 
-    fun addAccessToken(token: String, username: String ){
+    fun deleteAll() {
+        val db = this.writableDatabase
+        db.execSQL("DROP TABLE IF EXISTS access_token")
+    }
+
+    fun addAccessToken(token: String, username: String, userId: String){
         val values = ContentValues()
 
         values.put("token", token)
         values.put("username", username)
+        values.put("user_id", userId)
 
         val db = this.writableDatabase
 
@@ -43,7 +50,8 @@ class DatabaseConnector(context: Context, factory: SQLiteDatabase.CursorFactory?
                 courseModalArrayList.add(
                     AccessTokenModal(
                         cursor.getString(1),
-                        cursor.getString(2)
+                        cursor.getString(2),
+                        cursor.getString(3)
                     )
                 )
             } while (cursor.moveToNext())

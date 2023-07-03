@@ -44,8 +44,9 @@ class MainActivity : AppCompatActivity() {
                     error.visibility = View.INVISIBLE
                     val accessToken = parsedObject.get("accessToken").asString
                     val username = parsedObject.get("username").asString
+                    val userId = parsedObject.get("userId").asString
 
-                    db.addAccessToken(accessToken, username)
+                    db.addAccessToken(accessToken, username, userId)
 
                     val intent = Intent(this@MainActivity, OverviewActivity::class.java)
                     startActivity(intent)

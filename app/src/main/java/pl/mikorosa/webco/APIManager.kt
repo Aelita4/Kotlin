@@ -36,6 +36,33 @@ class APIManager {
             return body
         }
 
+        fun spy(userId: String): JsonObject {
+            val request = Request.Builder()
+                .url("https://col.ael.ovh/api/getResources/" + userId)
+                .addHeader("Authorization", "spy")
+                .build()
+
+            val client = OkHttpClient()
+            var body: JsonObject = Gson().fromJson("{code:500, message: \"Internal server error\"}", JsonObject::class.java)
+
+            val countDownLatch = CountDownLatch(1)
+            client.newCall(request).enqueue(object: Callback {
+                override fun onResponse(call: Call?, response: Response?) {
+                    body = Gson().fromJson(response?.body()?.string().toString(), JsonObject::class.java)
+                    countDownLatch.countDown()
+                }
+
+                override fun onFailure(call: Call?, e: IOException?) {
+                    println("Failed to execute request")
+                    e?.printStackTrace()
+                    countDownLatch.countDown()
+                }
+            })
+
+            countDownLatch.await()
+            return body.asJsonObject
+        }
+
         fun getOwnResources(accessToken: String): JsonObject {
             val request = Request.Builder()
                 .url("https://col.ael.ovh/api/getResources/own")

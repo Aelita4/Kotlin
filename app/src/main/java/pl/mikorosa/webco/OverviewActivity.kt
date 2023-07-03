@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import java.util.*
+import kotlin.concurrent.fixedRateTimer
 
 class OverviewActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,7 +47,15 @@ class OverviewActivity : AppCompatActivity() {
                 owner = planet.asJsonObject.get("owner").asJsonObject.get("username").asString
             }
 
-            data.add(GalaxyViewModel(i++, planet.asJsonObject.get("name").asString, planet.asJsonObject.get("owner").asJsonObject.get("username").asString))
+            data.add(GalaxyViewModel(
+                i++,
+                planet.asJsonObject.get("name").asString,
+                planet.asJsonObject.get("owner").asJsonObject.get("username").asString,
+                planet.asJsonObject.get("owner").asJsonObject.get("id").asString,
+                dataFromDb.userId,
+                dataFromDb.token,
+                this
+            ))
         }
 
         val greeting: TextView = findViewById(R.id.textGreeting)
@@ -71,19 +80,18 @@ class OverviewActivity : AppCompatActivity() {
         woodAmount.text = resources.get("wood").asInt.toString()
 
         val rates = APIManager.getDefaultMiningRates()
-        Timer().scheduleAtFixedRate( object : TimerTask() {
-            override fun run() {
-                runOnUiThread {
-                    coalAmount.text = ((coalAmount.text as String).toInt() + rates.get("coal").asInt).toString()
-                    copperAmount.text = ((copperAmount.text as String).toInt() + rates.get("copper").asInt).toString()
-                    goldAmount.text = ((goldAmount.text as String).toInt() + rates.get("gold").asInt).toString()
-                    ironAmount.text = ((ironAmount.text as String).toInt() + rates.get("iron").asInt).toString()
-                    oilAmount.text = ((oilAmount.text as String).toInt() + rates.get("oil").asInt).toString()
-                    uraniumAmount.text = ((uraniumAmount.text as String).toInt() + rates.get("uranium").asInt).toString()
-                    woodAmount.text = ((woodAmount.text as String).toInt() + rates.get("wood").asInt).toString()
-                }
+
+        val timer = fixedRateTimer(name = "resources", initialDelay = 1000, period = 1000, daemon = true) {
+            runOnUiThread {
+                coalAmount.text = ((coalAmount.text as String).toInt() + rates.get("coal").asInt).toString()
+                copperAmount.text = ((copperAmount.text as String).toInt() + rates.get("copper").asInt).toString()
+                goldAmount.text = ((goldAmount.text as String).toInt() + rates.get("gold").asInt).toString()
+                ironAmount.text = ((ironAmount.text as String).toInt() + rates.get("iron").asInt).toString()
+                oilAmount.text = ((oilAmount.text as String).toInt() + rates.get("oil").asInt).toString()
+                uraniumAmount.text = ((uraniumAmount.text as String).toInt() + rates.get("uranium").asInt).toString()
+                woodAmount.text = ((woodAmount.text as String).toInt() + rates.get("wood").asInt).toString()
             }
-        }, 0, 1000)
+        }
 
         val adapter = CustomAdapter(data)
         recyclerview.adapter = adapter
